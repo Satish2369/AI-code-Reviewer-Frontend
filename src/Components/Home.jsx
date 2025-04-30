@@ -1,13 +1,23 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-const Home = () => {
- const navigate = useNavigate();
-  return (
-    <div className='home'>
-      welcome to the home page
-      <button onClick={()=>navigate("/review")}>review page</button>
-    </div>
-  )
-}
+import React from 'react';
 
-export default Home
+import '../Home.css';
+import Footer from './Footer';
+import Header from './Header';
+import Main from './Main';
+
+const Home = () => {
+
+
+  return (
+    <div className="app-container">
+     
+        <Header/>
+         <Main/>
+        <Footer/>
+
+
+    </div>
+  );
+};
+
+export default Home;

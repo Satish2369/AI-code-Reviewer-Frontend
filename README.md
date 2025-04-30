@@ -13,40 +13,7 @@ Modern routing using React Router v6.4+ (createBrowserRouter and RouterProvider)
 
 Clean and modular project structure
 
-📂 Project Structure
-src/
-├── Home.jsx
-├── Reviewer.jsx
-├── Body.jsx (Router setup)
-├── App.jsx
-└── main.jsx
-
 
 🛠 Tech Stack
 Frontend: React.js
-
-Routing: React Router v6.4+ (createBrowserRouter)
-
-Styling: Custom CSS 
-
-🧩 Installation
-Clone the repository:
-
-git clone https://github.com/your-username/ai-code-reviewer.git
-cd ai-code-reviewer
-
-
-Install dependencies:
-npm install
-Start the development server:
-npm run dev
-
-
-✨ Available Routes
-Path	      Description
-/	          Home Page
-/review	      Reviewer Page
-
-
-
-
+Backend:Node,express
