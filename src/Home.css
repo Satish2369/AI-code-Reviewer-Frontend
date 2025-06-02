@@ -407,10 +407,10 @@ img, svg, video {
 
 /* Footer */
 .app-footer {
-  margin-top: auto;
+  margin-top: 7vw;
   padding: 2rem;
   background-color: var(--bg-darker);
-  border-top: 1px solid var(--border-color);
+  /* border-top: 1px solid var(--border-color); */
   width: 100%;
 }
 
@@ -530,6 +530,7 @@ img, svg, video {
    align-items: center;
     height:100vh;
   width: 100vw;
+  
 }
 
 .authBox{

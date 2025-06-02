@@ -9,12 +9,10 @@ import "highlight.js/styles/atom-one-dark.css";
 import { useEffect } from 'react';
 import Markdown from "react-markdown";
 import { FaCode, FaRobot, FaSpinner } from 'react-icons/fa';
-import  useGetProfile from  "../utils/customHooks/useGetProfile"
 
 
 function Reviewer() {
   
-      useGetProfile();
   const [code, setCode] = useState(`function sum(a, b) {
   return a + b;
 }`);
@@ -25,18 +23,16 @@ function Reviewer() {
   const [activeTab, setActiveTab] = useState('code');
 
 
-   
-  useEffect(() => {
 
+  useEffect(() => {
     prism.highlightAll();
   }, [code, review]);
 
 
- 
-
-
 
    
+
+  
 
 
   async function reviewCode() {
@@ -64,6 +60,9 @@ function Reviewer() {
     }
   }
   
+
+
+
 
 
   return (
