@@ -20,8 +20,8 @@ const Header = () => {
           <h1 className="logo-text">Code<span className="logo-highlight">Craft</span> AI</h1>
         </div>
         <nav className="nav">
-          <button className="cta-button" onClick={() => navigate('/review')}>
-            Start Reviewing
+          <button className="cta-button" onClick={() => navigate('/login')}>
+            Login
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M5.93945 13.3337L10.6061 8.00033L5.93945 2.66699" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

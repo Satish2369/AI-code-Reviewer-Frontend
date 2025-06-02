@@ -13,7 +13,8 @@ const Main = () => {
       ]);
       const [command, setCommand] = useState('');
       const [isProcessing, setIsProcessing] = useState(false);
-    
+      const [focusInput, setFocusInput] = useState(false);
+
       const handleCommandSubmit = (e) => {
         e.preventDefault();
         if (!command.trim()) return;
@@ -27,7 +28,7 @@ const Main = () => {
           let response = '';
           if (command.includes('review')) {
             response = 'Initializing code review session...\nRedirecting to review interface.';
-            setTimeout(() => navigate('/review'), 1500);
+            setTimeout(() => navigate('/login'), 1500);
           } else {
             response = `Command not recognized: ${command}\nTry "review" to start code analysis`;
           }
@@ -62,7 +63,11 @@ const Main = () => {
                Debug  your code directly in your browser.
             </p>
             <div className="hero-buttons">
-              <button className="primary-btn" onClick={() => document.getElementById('terminal').scrollIntoView()}>
+              <button className="primary-btn" onClick={() => {
+                document.getElementById('terminal').scrollIntoView();
+                 setFocusInput(true);
+              }
+              }>
                 Try Terminal
               </button>
               <button className="secondary-btn" onClick={() => navigate('/review')}>
@@ -139,7 +144,7 @@ const Main = () => {
                     value={command}
                     onChange={(e) => setCommand(e.target.value)}
                     disabled={isProcessing}
-                    autoFocus
+                    autoFocus={focusInput}
                   />
                   {isProcessing && <span className="processing-animation"></span>}
                 </form>

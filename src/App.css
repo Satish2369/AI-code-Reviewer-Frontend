@@ -263,7 +263,7 @@ main {
 
 
 .right{
-  overflow: auto;
+  overflow:scroll;
 }
 
 
@@ -282,3 +282,8 @@ main {
     height: 50%;
   }
 }
+
+
+
+/* authPage */
+

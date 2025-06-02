@@ -9,8 +9,12 @@ import "highlight.js/styles/atom-one-dark.css";
 import { useEffect } from 'react';
 import Markdown from "react-markdown";
 import { FaCode, FaRobot, FaSpinner } from 'react-icons/fa';
+import  useGetProfile from  "../utils/customHooks/useGetProfile"
+
 
 function Reviewer() {
+  
+      useGetProfile();
   const [code, setCode] = useState(`function sum(a, b) {
   return a + b;
 }`);
@@ -20,9 +24,20 @@ function Reviewer() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('code');
 
+
+   
   useEffect(() => {
+
     prism.highlightAll();
   }, [code, review]);
+
+
+ 
+
+
+
+   
+
 
   async function reviewCode() {
     if (!code.trim()) {
@@ -36,8 +51,11 @@ function Reviewer() {
     try {
       const response = await axios.post("http://localhost:3000/ai/get-review", {
         code: code
+      },{
+        withCredentials:true
       });
-      setReview(response.data);
+        console.log(response.data.codeTitle);
+      setReview(response.data.reviewCode);
     } catch (err) {
       setError('Failed to get review. Please try again.');
       console.error(err);
@@ -45,6 +63,8 @@ function Reviewer() {
       setIsLoading(false);
     }
   }
+  
+
 
   return (
     <div className="reviewer">

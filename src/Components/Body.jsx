@@ -2,6 +2,7 @@ import React from 'react'
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'   
 import Home from './Home'
 import Reviewer from './Reviewer'
+import AuthPage from './AuthPage'
 
 
 const Body = () => {
@@ -16,6 +17,9 @@ const Body = () => {
    {
     path:"/review",
     element:<Reviewer/>
+   },{
+       path:"/login",
+       element:<AuthPage/>
    }
 
 
