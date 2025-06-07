@@ -44,7 +44,7 @@ const[error,setError] = useState("");
    })
 if(!userDetail.data?.data){
        console.error("No userDetail fetched");
-       return;
+       
     }
 
    const {name:userName,emailId : userEmail,photoUrl,history} = userDetail.data?.data;
@@ -76,7 +76,7 @@ if(!userDetail.data?.data){
    })
        if(!userDetail.data?.data){
        console.error("No userDetail fetched");
-       return;
+       
     }
 
    const {name:userName,emailId : userEmail,photoUrl,history} = userDetail.data.data;
@@ -84,7 +84,7 @@ if(!userDetail.data?.data){
 
    dispatch(addUser({ name:userName,emailId :userEmail,photoUrl,history}));
    
-   navigate("/review",{ replace: true });
+ 
      }
      catch(e){
           console.error("Error :",e);
