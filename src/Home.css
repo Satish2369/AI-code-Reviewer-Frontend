@@ -573,7 +573,7 @@ img, svg, video {
   margin: 1vw 0vw;
      color:#3aa8d8
 }
-.password-box{
+.password-box,.username-box{
    color:#3aa8d8
 }
 .email-box input,.password-box input,.username-box input{
