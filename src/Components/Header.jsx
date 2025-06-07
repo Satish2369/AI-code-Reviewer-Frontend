@@ -57,7 +57,7 @@ const Header = () => {
 
 
         <nav className="nav">
-                 {image && userName && (
+                 {currentPath=="/review" && image && userName && (
                           <div className="profile-image">
                                <img src={image}  style={{height:"28px",width:"28px",marginTop:"10px"}} alt="user-image" />
                                <div className='user-name'>welcome,{userName}</div>
