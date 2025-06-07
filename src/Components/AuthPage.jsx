@@ -44,7 +44,7 @@ const[error,setError] = useState("");
    })
 if(!userDetail.data?.data){
        console.error("No userDetail fetched");
-       
+       return navigate("/review");;
     }
 
    const {name:userName,emailId : userEmail,photoUrl,history} = userDetail.data?.data;
@@ -76,7 +76,8 @@ if(!userDetail.data?.data){
    })
        if(!userDetail.data?.data){
        console.error("No userDetail fetched");
-       
+        navigate("/review");
+       return;
     }
 
    const {name:userName,emailId : userEmail,photoUrl,history} = userDetail.data.data;
