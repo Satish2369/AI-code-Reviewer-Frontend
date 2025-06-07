@@ -54,6 +54,7 @@ main {
   flex-direction: column;
   padding: 1rem;
   overflow: hidden;
+   border-bottom: 1px solid var(--border-color);
 }
 
 .left {
@@ -265,6 +266,8 @@ main {
 .right{
   overflow:scroll;
 }
+
+
 
 
 @media (max-width: 768px) {

@@ -9,6 +9,9 @@ import "highlight.js/styles/atom-one-dark.css";
 import { useEffect } from 'react';
 import Markdown from "react-markdown";
 import { FaCode, FaRobot, FaSpinner } from 'react-icons/fa';
+import { BASE_URL } from '../utils/Constant';
+import { useSelector } from 'react-redux';
+import { replace, useNavigate } from 'react-router-dom';
 
 
 function Reviewer() {
@@ -22,17 +25,21 @@ function Reviewer() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('code');
 
+const navigate = useNavigate();
 
-
+  
   useEffect(() => {
     prism.highlightAll();
   }, [code, review]);
 
 
 
-   
-
-  
+  const user =useSelector((store)=>store?.user?.name);
+       useEffect(() => {
+      if (!user) {
+      navigate("/login", { replace: true });
+    }
+  }, [user, navigate]);
 
 
   async function reviewCode() {
@@ -45,7 +52,7 @@ function Reviewer() {
     setError(null);
     
     try {
-      const response = await axios.post("http://localhost:3000/ai/get-review", {
+      const response = await axios.post(BASE_URL + "/ai/get-review", {
         code: code
       },{
         withCredentials:true

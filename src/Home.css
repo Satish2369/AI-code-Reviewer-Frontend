@@ -106,6 +106,25 @@ img, svg, video {
   background-color: var(--accent-dark);
 }
 
+
+.nav{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap:2vw;
+   
+}
+.profile-image{
+      display: flex;
+   justify-content: center;
+   align-items: center;
+    gap:1vw;
+}
+.user-name{
+  margin-top: 10px;
+  cursor: pointer;
+
+}
 /* Main Content */
 .main-content {
   display: flex;
@@ -521,25 +540,25 @@ img, svg, video {
 }
 .authPage{
 
-  height:100vh;
-  width: 100vw;
+  height:fit-content;
+  width: 100%;
 }
 .authContainer{
+   flex: 1;
    display: flex;
    justify-content: center;
    align-items: center;
-    height:100vh;
-  width: 100vw;
-  
+
 }
 
 .authBox{
 
    min-height: 24vw;
    width: 24vw;
-   border: 2px solid white;
+   border: 2px solid #3aa8d8;
    border-radius: 10px;
    padding: 1vw;
+   margin-top: 5vw;
 }
 
 .auth-title{
@@ -547,16 +566,22 @@ img, svg, video {
   justify-content: center;
   align-items: center;
    cursor: pointer;
+   color:#3aa8d8
 }
 
 .email-box{
   margin: 1vw 0vw;
+     color:#3aa8d8
+}
+.password-box{
+   color:#3aa8d8
 }
 .email-box input,.password-box input,.username-box input{
     height: 2vw;
     width:100%;
     padding:  1vw;
     border-radius: 0.5vw;
+       color:#3aa8d8
 }
 
 .last-line{
@@ -567,7 +592,7 @@ img, svg, video {
   margin: 0.7vw;
   font-size: 0.9vw;
    cursor: pointer;
-   color:white;
+   color:#3aa8d8;
 }
 
 .submit-button {
@@ -577,7 +602,7 @@ img, svg, video {
   justify-content: center;
   align-items: center;
   width: 100%;
-  border: 2px solid white;
+  border: 2px solid #3aa8d8;
   border-radius: 0.5vw;
   margin: 1vw 0vw;
   padding: 0.3vw 0vw;

@@ -4,18 +4,26 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { BASE_URL } from '../utils/Constant';
 import { removeUser } from '../utils/userSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+
+
+
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+  const image = useSelector((store)=>store?.user?.photoUrl);
+  const userName = useSelector((store)=>store?.user?.name);
+  
   const currentPath = location.pathname;
 
   
   const showLoginButton = currentPath !== '/login';
   const buttonLabel = currentPath !== '/' ? 'logOut' : 'logIn';
 
-
+   
   const handleButtonClick = () => {
     if (buttonLabel === 'logOut') {
 
@@ -23,13 +31,13 @@ const Header = () => {
      withCredentials:true
   })
    
-  console.log(logOut);
+  
 
      dispatch(removeUser());
 
-      navigate('/login');
+      navigate('/login',{ replace: true });
     } else {
-      navigate('/login');
+      navigate('/login',{ replace: true });
     }
   };
 
@@ -44,9 +52,22 @@ const Header = () => {
               <path d="M12 16L16 12L12 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </div>
-          <h1 className="logo-text">Code<span className="logo-highlight">Craft</span> AI</h1>
+          <h1 className="logo-text"  onClick={()=> navigate("/",{ replace: true })}   style={{"cursor":"pointer"}}>Code<span className="logo-highlight">Craft</span> AI </h1>
         </div>
+
+
         <nav className="nav">
+                 {image && userName && (
+                          <div className="profile-image">
+                               <img src={image}  style={{height:"28px",width:"28px",marginTop:"10px"}} alt="user-image" />
+                               <div className='user-name'>welcome,{userName}</div>
+                          </div>
+
+                 )}
+
+
+
+
           {showLoginButton && (
             <button className="cta-button" onClick={handleButtonClick}>
               {buttonLabel}

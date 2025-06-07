@@ -2,8 +2,14 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../Home.css'
+import { useSelector } from 'react-redux'
+
 
 const Main = () => {
+
+ const user = useSelector((store)=> store?.user);
+
+
 
     const navigate = useNavigate();
       const [terminalHistory, setTerminalHistory] = useState([
@@ -28,7 +34,7 @@ const Main = () => {
           let response = '';
           if (command.includes('review')) {
             response = 'Initializing code review session...\nRedirecting to review interface.';
-            setTimeout(() => navigate('/login'), 1500);
+            setTimeout(() => navigate('/login',{ replace: true }), 1500);
           } else {
             response = `Command not recognized: ${command}\nTry "review" to start code analysis`;
           }
@@ -70,7 +76,25 @@ const Main = () => {
               }>
                 Try Terminal
               </button>
-              <button className="secondary-btn" onClick={() => navigate('/review')}>
+              <button className="secondary-btn" onClick={
+
+                () => {
+
+                 if(user.name){
+                  console.log(user);
+                  navigate("/review",{ replace: true })
+                 }
+                 else{
+                  navigate("/login",{ replace: true })
+                 }
+
+
+
+                }
+                
+                
+                
+                }>
                 Start Reviewing
               </button>
             </div>

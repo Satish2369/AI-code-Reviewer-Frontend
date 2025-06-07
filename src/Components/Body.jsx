@@ -40,7 +40,6 @@ const Body = () => {
   ])
 
 
-
   return (
     <div className='body'>
       <RouterProvider router={router}/>

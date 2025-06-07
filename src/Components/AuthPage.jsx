@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Header from './Header';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { BASE_URL } from '../utils/Constant';
 const AuthPage = () => {
@@ -20,7 +20,17 @@ const[error,setError] = useState("");
 
  const dispatch = useDispatch();
 
+ const user = useSelector((store)=>store.user);
+  
  
+
+
+
+
+
+
+
+
   const handleSignUp = async ()=>{
 
      try{
@@ -42,7 +52,7 @@ if(!userDetail.data?.data){
  dispatch(addUser({ name:userName,emailId :userEmail,photoUrl,history}));
 
 
-  navigate("/review");
+  navigate("/review",{ replace: true });
      }
      catch(e){
           console.error("Error :",e);
@@ -74,7 +84,7 @@ if(!userDetail.data?.data){
 
    dispatch(addUser({ name:userName,emailId :userEmail,photoUrl,history}));
    
-   navigate("/review");
+   navigate("/review",{ replace: true });
      }
      catch(e){
           console.error("Error :",e);
