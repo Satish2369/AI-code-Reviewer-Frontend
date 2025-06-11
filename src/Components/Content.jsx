@@ -33,7 +33,7 @@ const fetchUser = async()=>{
       } catch (e) {
         console.error("Error fetching profile:", e);
           if(currentPath !== "/"){
-             navigate("login");
+             navigate("/login");
           }
            
       } 

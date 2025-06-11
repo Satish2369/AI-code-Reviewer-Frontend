@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react';
-import Header from './Header';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,10 +37,10 @@ const[error,setError] = useState("");
           withCredentials:true
    })
 
-
     const userDetail = await axios.get(BASE_URL+"/users/getProfile",{
       withCredentials:true,
    })
+   
 if(!userDetail.data?.data){
        console.error("No userDetail fetched");
        return navigate("/review",{ replace: true });
@@ -54,9 +53,11 @@ if(!userDetail.data?.data){
 
   navigate("/review",{ replace: true });
      }
+
      catch(e){
           console.error("Error :",e);
      }
+
 
   }
 

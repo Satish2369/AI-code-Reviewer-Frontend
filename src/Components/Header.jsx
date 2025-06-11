@@ -35,7 +35,7 @@ const Header = () => {
 
      dispatch(removeUser());
 
-      navigate('/login',{ replace: true });
+      navigate('/',{ replace: true });
     } else {
       navigate('/login',{ replace: true });
     }
@@ -52,7 +52,15 @@ const Header = () => {
               <path d="M12 16L16 12L12 8" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </div>
-          <h1 className="logo-text"  onClick={()=> navigate("/",{ replace: true })}   style={{"cursor":"pointer"}}>Code<span className="logo-highlight">Craft</span> AI </h1>
+          <h1 className="logo-text" 
+           onClick={async()=> {
+             await logOut();
+            navigate("/",{ replace: true })
+          
+            
+          
+          }} 
+             style={{"cursor":"pointer"}}>Code<span className="logo-highlight">Craft</span> AI </h1>
         </div>
 
 

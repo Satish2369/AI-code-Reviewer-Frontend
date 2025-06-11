@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import '../App.css';
 import "prismjs/themes/prism-tomorrow.css";
 import Editor from 'react-simple-code-editor';
@@ -10,12 +10,18 @@ import { useEffect } from 'react';
 import Markdown from "react-markdown";
 import { FaCode, FaRobot, FaSpinner } from 'react-icons/fa';
 import { BASE_URL } from '../utils/Constant';
-import { useSelector } from 'react-redux';
-import { replace, useNavigate } from 'react-router-dom';
+import { ToastContainer,toast } from 'react-toastify';
+import downloadGif from "../assets/icons8-download.gif";
+import { useRef } from 'react';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
+
+
+
 
 
 function Reviewer() {
-  
   const [code, setCode] = useState(`function sum(a, b) {
   return a + b;
 }`);
@@ -25,21 +31,13 @@ function Reviewer() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('code');
 
-const navigate = useNavigate();
+  const reviewRef = useRef();
 
   
   useEffect(() => {
     prism.highlightAll();
   }, [code, review]);
 
-
-
-  const user =useSelector((store)=>store?.user?.name);
-       useEffect(() => {
-      if (!user) {
-      navigate("/login", { replace: true });
-    }
-  }, [user, navigate]);
 
 
   async function reviewCode() {
@@ -57,7 +55,7 @@ const navigate = useNavigate();
       },{
         withCredentials:true
       });
-        console.log(response.data.codeTitle);
+        // console.log(response.data.codeTitle);
       setReview(response.data.reviewCode);
     } catch (err) {
       setError('Failed to get review. Please try again.');
@@ -66,16 +64,66 @@ const navigate = useNavigate();
       setIsLoading(false);
     }
   }
+  const copyReviewToClipboard = async () => {
+  try {
+    if (review) {
+      await navigator.clipboard.writeText(review);
+      toast.success("Review copied to clipboard!");
+    } else {
+      toast.warn("⚠️ Nothing to copy!");
+    }
+  } catch (err) {
+    toast.warn("Failed to copy.");
+    console.error(err);
+  }
+};
+
+
+
+ const downloadPdf = async () => {
+  const original = reviewRef.current;
+  if (!original) return;
+
   
+  const clone = original.cloneNode(true);
+
+
+  clone.style.backgroundColor = "#0d1117";
+  clone.style.color = "#ffffff";
+  clone.style.padding = "2.5vw";
+  clone.style.width = "794px";
+  clone.style.height = "1123px";
+
+
+  clone.style.position = "absolute";
+  clone.style.top = "-9999px";
+  document.body.appendChild(clone);
+
+
+  const canvas = await html2canvas(clone);
+  const imgData = canvas.toDataURL('image/png');
+
+  const pdf = new jsPDF('p', 'mm', 'a4');
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+  pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+  pdf.save('ai-review.pdf');
+
+
+  document.body.removeChild(clone);
+
+  toast.success("Review file is downloading");
+};
 
 
 
-
+  
 
   return (
     <div className="reviewer">
       <header className="reviewer-header">
-        <h1>
+        <h1 style={{color:"#4fc3f7"}}>
           <FaCode className="header-icon" /> 
           AI Code Reviewer
         </h1>
@@ -92,17 +140,11 @@ const navigate = useNavigate();
               >
                 Your Code
               </button>
-              <button 
-                className={`tab ${activeTab === 'review' ? 'active' : ''}`}
-                onClick={() => setActiveTab('review')}
-                disabled={!review}
-              >
-                AI Review
-              </button>
+             
             </div>
           </div>
 
-          {activeTab === 'code' ? (
+          
             <div className="code">
               <Editor
                 value={code}
@@ -119,13 +161,7 @@ const navigate = useNavigate();
                 }}
               />
             </div>
-          ) : (
-            <div className="review-preview">
-              <Markdown rehypePlugins={[rehypeHighlight]}>
-                {review || 'Run a review to see AI feedback here'}
-              </Markdown>
-            </div>
-          )}
+          
 
           <div className="controls">
             <button 
@@ -149,14 +185,42 @@ const navigate = useNavigate();
 
         <div className="right">
           <div className="review-header">
-            <h2>
+            <h2  style={{color:"#4fc3f7"}}>
               <FaRobot className="header-icon" /> 
               AI Code Analysis
-            </h2>
+            </h2> 
             {review && (
-              <div className="review-meta">
-                {new Date().toLocaleString()}
-              </div>
+
+              <div className='extra-options'> 
+
+
+
+
+               <div className="download-icon"  style={{ cursor: "pointer" }}   onClick={downloadPdf}>
+                   <img
+                    src={downloadGif}
+                    alt="download-icon"
+                    style={{ height: "2vw", width: "2vw" }}
+                 />
+               </div>
+
+
+                <div className="copy-icon" onClick={copyReviewToClipboard} style={{ cursor: "pointer" }}>
+                   <img
+                    src="https://img.icons8.com/?size=100&id=32540&format=png&color=000000"
+                    alt="copy-icon"
+                    style={{ height: "2vw", width: "2vw" }}
+                 />
+               </div>
+
+                   
+
+                 <div className="review-meta">
+                   {new Date().toLocaleString()}
+                 </div>
+
+               </div>
+
             )}
           </div>
 
@@ -167,9 +231,11 @@ const navigate = useNavigate();
               <p className="hint">This usually takes 10-30 seconds</p>
             </div>
           ) : review ? (
-            <Markdown rehypePlugins={[rehypeHighlight]}>
-              {review}
-            </Markdown>
+           <div ref={reviewRef}>
+               <Markdown rehypePlugins={[rehypeHighlight]}>
+               {review}
+               </Markdown>
+          </div>
           ) : (
             <div className="empty-state">
               <div className="robot-icon">
@@ -189,8 +255,8 @@ const navigate = useNavigate();
           )}
         </div>
       </main>
+   <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 }
-
 export default Reviewer;

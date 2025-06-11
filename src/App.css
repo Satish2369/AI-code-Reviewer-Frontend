@@ -265,9 +265,40 @@ main {
 
 .right{
   overflow:scroll;
+  padding: 1.2vw;
+}
+
+.extra-options{
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   gap: 1vw;
+}
+.copy-icon:hover img {
+  filter: brightness(1.4);
+  transform: scale(1.05);
+  transition: all 0.2s ease-in-out;
+}
+.download-icon:hover img {
+  filter: brightness(1.5);
+  transform: scale(1.09);
+  transition: all 0.2s ease-in-out;
 }
 
 
+.pdf-mode{
+ 
+  background-color: black !important;
+  color: white !important;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.2;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  
+
+
+
+}
 
 
 @media (max-width: 768px) {
